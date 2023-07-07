@@ -6,31 +6,31 @@ public class Comment
     static ArrayList<Comment> comments=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //
-    String body;
-    int commentID;
-    int userID;
-    int foodID;
-    int restaurantID;
-    boolean respond=false;
-    String respondBody="";
+    private String body;
+    private int commentID;
+    private int userID;
+    private int foodID;
+    private int restaurantID;
+    private boolean respond=false;
+    private String respondBody;
 //////////////////////////////////////////////////////////////////////
 //constructors
     Comment(int FoodID,int UserID,String Body)
     {
         foodID=FoodID;
         userID=UserID;
-        restaurantID= Food.getFood(foodID) != null ? Food.getFood(foodID).restaurantID : 0;
-        commentID=comments.size();
+        restaurantID= Food.getFood(foodID) != null ? Food.getFood(foodID).getRestaurantID() : 0;
+        commentID=GetRandomID.getID();
         body=Body;
         comments.add(this);
-        Food.getFood(foodID).comments.add(this);
-        Restaurant.getRestaurant(restaurantID).receivedComments.add(this);
+        Food.getFood(foodID).addComment(this);
+        Restaurant.getRestaurant(restaurantID).receiveAnOrder(commentID);
 
     }
 //////////////////////////////////////////////////////////////////////
 //functions
 
-    void setRespond(String RespondBody)
+    void setRespond(String RespondBody) //let's set respond!
     {
         respond=true;
         respondBody=RespondBody;
@@ -39,7 +39,7 @@ public class Comment
 
 //////////////////////////////////////////////////////////////////////
 //static functions
-    static Comment getComment(int commentID)
+    static Comment getComment(int commentID) //searching comments using their IDs
     {
         for (Comment comment : comments)
         {

@@ -5,17 +5,17 @@ public class Food
     static ArrayList<Food> foods=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //
-    int foodID;
-    int restaurantID;
-    String name;
-    int price;
-    ArrayList<Integer> rating=new ArrayList<>();
-    ArrayList<Comment> comments=new ArrayList<>();
+    private int foodID;
+    private int restaurantID;
+    private String name;
+    private int price;
+    private ArrayList<Integer> rating=new ArrayList<>();
+    private ArrayList<Comment> comments=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //constructors
     Food(String Name,int RestaurantID,int Price)
     {
-        foodID=foods.size();
+        foodID=GetRandomID.getID();
         name=Name;
         restaurantID=RestaurantID;
         price=Price;
@@ -23,8 +23,15 @@ public class Food
     }
 //////////////////////////////////////////////////////////////////////
 //functions
+    int getRestaurantID() {return restaurantID;} //Breaking news: It gives you restaurantID
+    String getName(){return name;} // JOJO DI DI DIN DIN DIN DIN DIN DIN GOLDEN WIND
+    int getPrice(){return price;} // miew
+    void addComment(Comment comment)
+    {
+        comments.add(comment);
+    }
 
-    void rate(int Rating)
+    void rate(int Rating) //a user will use this to rate
     {
         rating.add(Rating);
     }
@@ -42,7 +49,7 @@ public class Food
 
 //////////////////////////////////////////////////////////////////////
 //static functions
-    static Food getFood(int foodID)
+    static Food getFood(int foodID) //searching foods using their IDs
     {
         for(Food food : foods)
         {
@@ -54,7 +61,7 @@ public class Food
         return null;
     }
 
-    static void deleteFood(int foodID)
+    static void deleteFood(int foodID) //you know what it does...
     {
         for(Food food : foods)
         {

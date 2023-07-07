@@ -5,38 +5,39 @@ public class Order
     static ArrayList<Order> orders=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //
-    int orderID;
-    ArrayList<Integer> foodIDs=new ArrayList<>();
-    int restaurantID;
-    int deliverID;
-    int userID;
-    Status status;
-    path Path;
+    private int orderID;
+    private ArrayList<Integer> foodIDs=new ArrayList<>();
+    private int restaurantID;
+    private int deliverID;
+    private int userID;
+    private Status status;
+    private path Path;
 //////////////////////////////////////////////////////////////////////
 //constructors
     Order(int UserID,int RestaurantID)
     {
-        orderID=orders.size();
+        orderID=GetRandomID.getID();
         restaurantID=RestaurantID;
+        Restaurant.getRestaurant(RestaurantID).receiveAnOrder(orderID);
         userID=UserID;
         orders.add(this);
     }
 
 //////////////////////////////////////////////////////////////////////
 //functions
-    int price()
+    int price() //calculate price of the order
     {
         int pr=0;
         for(int ID : foodIDs)
         {
-            pr+=Food.getFood(ID).price;
+            pr+=Food.getFood(ID).getPrice();
         }
         return pr;
     }
     void addFood(int foodID)
     {
         foodIDs.add(foodID);
-    }
+    } //add food to order
 
     void removeFood(int foodID)
     {
@@ -49,8 +50,9 @@ public class Order
         }
     }
 
-    void statusRise()
+    void statusRise() //leveling up the status!!
     {
+        //todo: complete each case with what user ,deliver and restaurant needs to know
         if(status.equals(Status.NeedRestaurantAccept))
         {
             status=Status.NeedRestaurantAccept;
@@ -66,6 +68,7 @@ public class Order
         else if (status.equals(Status.Delivered))
         {
             status=Status.Finished;
+            Restaurant.getRestaurant(restaurantID).orderFinished(orderID);
         }
         else if (status.equals(null))
         {
@@ -73,7 +76,7 @@ public class Order
         }
     }
 
-    void cancelOrder()
+    void cancelOrder() //you know what it does!
     {
         status=Status.Canceled;
     }
@@ -81,7 +84,7 @@ public class Order
 
 //////////////////////////////////////////////////////////////////////
 //static functions
-    static Order getOrder(int orderID)
+    static Order getOrder(int orderID) //searching order using their IDs
     {
         for (Order order: orders)
         {
