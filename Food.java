@@ -5,10 +5,11 @@ public class Food
     static ArrayList<Food> foods=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //
-    private int foodID;
-    private int restaurantID;
+    private final int foodID;
+    private final int restaurantID;
     private String name;
     private int price;
+    private int localDiscount=0; //it's in percent.
     private ArrayList<Integer> rating=new ArrayList<>();
     private ArrayList<Comment> comments=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +26,15 @@ public class Food
 //functions
     int getRestaurantID() {return restaurantID;} //Breaking news: It gives you restaurantID
     String getName(){return name;} // JOJO DI DI DIN DIN DIN DIN DIN DIN GOLDEN WIND
-    int getPrice(){return price;} // miew
+    int getPrice() //it gives you the price after calculating the discount
+    {
+        if(localDiscount==0)
+        {
+            return price;
+        }
+        return price*localDiscount/100;
+
+    }
     void addComment(Comment comment)
     {
         comments.add(comment);

@@ -4,10 +4,12 @@ public class GetRandomID
 {
 //    this class gives you random unique IDs !!!
    static int getID(){
-       UUID uuid=UUID.randomUUID();
-       int ID=uuid.hashCode();
-       return ID;
+      int id=UUID.randomUUID().hashCode();
+      return absoluteValue(id);
    }
-
-
+   private static int absoluteValue(int in)
+   {
+      if(in>=0){return in;}
+      else {return -in;}
+   }
 }

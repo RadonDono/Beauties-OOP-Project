@@ -5,11 +5,12 @@ public class Restaurant
     static ArrayList<Restaurant> restaurants=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //
-    private int restaurantID;
-    private int ownerID;
+    private final int restaurantID;
+    private final int ownerID;
     private String name;
     private String foodType;
-    private ArrayList<Food> foods=new ArrayList<>();
+    private ArrayList<Food> activeFoods =new ArrayList<>();
+    private ArrayList<Food> deActiveFoods =new ArrayList<>();
     private ArrayList<Comment> receivedComments =new ArrayList<>();
     private ArrayList<Order> receivedOrders=new ArrayList<>();
     private ArrayList<Order> currentOrders=new ArrayList<>();
@@ -22,7 +23,7 @@ public class Restaurant
         name=Name;
         ownerID=OwnerID;
         foodType=FoodType;
-        restaurantID=restaurants.size();
+        restaurantID=GetRandomID.getID();
         restaurants.add(this);
     }
 
@@ -36,6 +37,11 @@ public class Restaurant
             }
         }
         return null;
+    }
+    void changeFoodType(String FoodType)
+    {
+        foodType=FoodType;
+        activeFoods =new ArrayList<>();
     }
 
     void receiveAnOrder(int orderID) //look at the name
@@ -57,12 +63,27 @@ public class Restaurant
         finishedOrders.add(Order.getOrder(orderID));
     }
 
-
-
     void addFood(String name,int price) //add food to restaurant
     {
         Food food=new Food(name,this.restaurantID,price);
-        foods.add(food);
+        activeFoods.add(food);
+    }
+    void deleteAFood(int FoodID) //how to deleteAFood
+    {
+        activeFoods.remove(Food.getFood(FoodID));
+        Food.deleteFood(FoodID);
+    }
+    void deActiveAFood(int foodID)  //you can deactive an active food
+    {
+        Food food=Food.getFood(foodID);
+        deActiveFoods.add(food);
+        activeFoods.remove(food);
+    }
+    void activeAFood(int foodID) //active a deactive food
+    {
+        Food food=Food.getFood(foodID);
+        deActiveFoods.remove(food);
+        activeFoods.add(food);
     }
 
 
