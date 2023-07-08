@@ -29,15 +29,12 @@ public class Restaurant
 
 //////////////////////////////////////////////////////////////////////
 //functions
-    static Restaurant getRestaurant(int restaurantID) //search restaurants using their IDs
-    {
-        for (Restaurant restaurant : restaurants) {
-            if (restaurant.restaurantID == restaurantID) {
-                return restaurant;
-            }
-        }
-        return null;
-    }
+    int getRestaurantID(){return restaurantID;}
+    
+    String getName(){return name;}
+
+    String getFoodType(){return foodType;}
+
     void changeFoodType(String FoodType)
     {
         foodType=FoodType;
@@ -85,6 +82,15 @@ public class Restaurant
         deActiveFoods.remove(food);
         activeFoods.add(food);
     }
-
-
+//////////////////////////////////////////////////////////////////////
+//static functions
+    static Restaurant getRestaurant(int restaurantID) //search restaurants using their IDs
+    {
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.restaurantID == restaurantID) {
+                return restaurant;
+            }
+        }
+        return null;
+    }
 }
