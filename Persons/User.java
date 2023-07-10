@@ -63,6 +63,7 @@ public class User extends Person
         {
             Order order=Order.getOrder(orderID);
             order.setStatus(Status.NeedRestaurantAccept);
+            cash-=order.price();
         }
     }
     public void cancelAnOrder(int orderID)
@@ -70,10 +71,39 @@ public class User extends Person
         if(isItAInProgressOrder(orderID))
         {
             Order order=Order.getOrder(orderID);
+            cash+= order.price();
             order.cancelOrder();
+
+        }
+    }
+    public void rateAnOrder(int orderID,int rate)// A user will rate an order in range (1,5)
+    {
+        if(isItAInProgressOrder(orderID))
+        {
+            Order order=Order.getOrder(orderID);
+            if(order.getStatus().equals(Status.Delivered))
+            {
+                order.rate(ID,rate);
+            }
         }
     }
 
+    public void rateAndCommentAnOrder(int orderID,int rate,String comment)// A user will rate and comment an order in range (1,5)
+    {
+        if(isItAInProgressOrder(orderID))
+        {
+            Order order=Order.getOrder(orderID);
+            if(order.getStatus().equals(Status.Delivered))
+            {
+                order.rateAndComment(ID,rate,comment);
+            }
+        }
+    }
+
+    public void chargeAccount(int charge)
+    {
+        cash+=charge;
+    }
 
     boolean isItAInProgressOrder(int orderID)
     {

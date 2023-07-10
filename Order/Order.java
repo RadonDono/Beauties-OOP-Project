@@ -36,7 +36,9 @@ public class Order
 //////////////////////////////////////////////////////////////////////
 //functions
     public int getOrderID(){return orderID;}
+    public Status getStatus(){return status;}
     public int getRestaurantID(){return restaurantID;}
+    public Comment getComment(){return comment;}
     public void deliverFond(int DeliverID)
     {
         deliverID=DeliverID;
@@ -109,13 +111,24 @@ public class Order
         status=Status.Canceled;
     }
 
-    public void userSetComment(int userID,String comment) //the user set a single comment for all off the foods in an order
+    public void rateAndComment(int userID,int rating,String comment) //the user set a single rating and comment for all off the foods in an order
     {
         if(userID==this.userID)
         {
             for(int i=0;i<foodIDs.size();i++)
             {
                 this.comment=new Comment(foodIDs.get(i),userID,comment);
+                Food.getFood(foodIDs.get(i)).rate(rating);
+            }
+        }
+    }
+    public void rate(int userID,int rating)
+    {
+        if(userID==this.userID)
+        {
+            for(int i=0;i<foodIDs.size();i++)
+            {
+                Food.getFood(foodIDs.get(i)).rate(rating);
             }
         }
     }

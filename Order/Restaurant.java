@@ -36,65 +36,128 @@ public class Restaurant
 
 //////////////////////////////////////////////////////////////////////
 //functions
-    int getRestaurantID(){return restaurantID;}
+    public int getRestaurantID(){return restaurantID;}
 
-    ras getLocation(){return location;}
-    String getName(){return name;}
+    public ras getLocation(){return location;}
+    public String getName(){return name;}
 
-    String getFoodType(){return foodType;}
+    public String getFoodType(){return foodType;}
 
-    void changeFoodType(String FoodType)
+    public void changeFoodType(String FoodType)
     {
         foodType=FoodType;
         activeFoods =new ArrayList<>();
     }
-
-    void receiveAnOrder(int orderID) //look at the name
+    public void receiveAnOrder(int orderID) //look at the name
     {
            receivedOrders.add(Order.getOrder(orderID));
     }
-    void acceptAnOrder(int orderID) // :) 8--->
+    public void acceptAnOrder(int orderID) // :) 8--->
     {
         receivedOrders.remove(Order.getOrder(orderID));
         currentOrders.add(Order.getOrder(orderID));
     }
-    void declineAnOrder(int orderID) //how mean!
+    public void declineAnOrder(int orderID) //how mean!
     {
         receivedOrders.remove(Order.getOrder(orderID));
     }
-    void orderFinished(int orderID) //let a restaurant know that their order is finished
+    public void orderFinished(int orderID) //let a restaurant know that their order is finished
     {
         currentOrders.remove(Order.getOrder(orderID));
         finishedOrders.add(Order.getOrder(orderID));
     }
 
-    void addFood(String name,int price) //add food to restaurant
+    public void addFood(String name,int price) //add food to restaurant
     {
         Food food=new Food(name,this.restaurantID,price);
         activeFoods.add(food);
     }
-    void deleteAFood(int FoodID) //how to deleteAFood
+    public void deleteAFood(int FoodID) //how to deleteAFood
     {
         activeFoods.remove(Food.getFood(FoodID));
         Food.deleteFood(FoodID);
     }
-    void deActiveAFood(int foodID)  //you can deactive an active food
+    public void deActiveAFood(int foodID)  //you can deactive an active food
     {
         Food food=Food.getFood(foodID);
         food.deactivateFood();
         deActiveFoods.add(food);
         activeFoods.remove(food);
     }
-    void activeAFood(int foodID) //active a deactive food
+    public void activeAFood(int foodID) //active a deactive food
     {
         Food food=Food.getFood(foodID);
         food.activateFood();
         deActiveFoods.remove(food);
         activeFoods.add(food);
     }
+    public void editLocation(ras newLocation)
+    {
+        location=newLocation;
+    }
+    public void editFoodName(int foodID,String name)
+    {
+        if(isThisFoodForRestaurant(foodID))
+        {
+            Food.getFood(foodID).editFoodName(name);
+        }
+    }
+    public void editFoodPrice(int foodID,int price)
+    {
+        if(isThisFoodForRestaurant(foodID))
+        {
+            Food.getFood(foodID).editFoodPrice(price);
+        }
+    }
+    boolean isThisFoodForRestaurant(int foodID)
+    {
+        for(Food food:activeFoods)
+        {
+            if(food.getFoodID()==foodID)
+            {
+                return true;
+            }
+        }
+        for(Food food:deActiveFoods)
+        {
+            if(food.getFoodID()==foodID)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void setFoodDiscount(int foodID, int percent)
+    {
+        if(isThisFoodForRestaurant(foodID))
+        {
+            Food.getFood(foodID).setDiscount(percent);
+        }
+    }
+    public void setARespond(int orderID,String comment)
+    {
+        if(isItAFinishedOrder(orderID))
+        {
+            Order order=Order.getOrder(orderID);
+            order.getComment().setRespond(comment);
+        }
+    }
+    public boolean isItAFinishedOrder(int orderID)
+    {
+        for(Order order:finishedOrders)
+        {
+            if(order.getOrderID()==orderID)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 //////////////////////////////////////////////////////////////////////
 //static functions
-    static Restaurant getRestaurant(int restaurantID) //search restaurants using their IDs
+    public static Restaurant getRestaurant(int restaurantID) //search restaurants using their IDs
     {
         for (Restaurant restaurant : restaurants) {
             if (restaurant.restaurantID == restaurantID) {

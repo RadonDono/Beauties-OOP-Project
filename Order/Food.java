@@ -19,7 +19,7 @@ public class Food
     private ArrayList<Comment> comments=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //constructors
-    Food(String Name,int RestaurantID,int Price)
+    public Food(String Name,int RestaurantID,int Price)
     {
         foodID= GetRandomID.getID();
         name=Name;
@@ -32,6 +32,7 @@ public class Food
 //functions
     int getRestaurantID() {return restaurantID;} //Breaking news: It gives you restaurantID
     String getName(){return name;} // JOJO DI DI DIN DIN DIN DIN DIN DIN GOLDEN WIND
+    int getFoodID(){return foodID;}
     int getPrice() //it gives you the price after calculating the discount
     {
         if(localDiscount==0)
@@ -63,6 +64,8 @@ public class Food
     {
         this.price=price;
     }
+
+    public void setDiscount(int percent){localDiscount=percent;}
 
 
 //////////////////////////////////////////////////////////////////////
