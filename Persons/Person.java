@@ -31,8 +31,19 @@ public abstract class Person
             {
                 return person;
             }
-            return null;
         }
+        return null;
+    }
+    public static boolean isThereAPersonWithThisUserName(String name)
+    {
+        for(Person person:people)
+        {
+            if(person.name.equals(name))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
