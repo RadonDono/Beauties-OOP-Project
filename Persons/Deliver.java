@@ -44,4 +44,15 @@ public class Deliver extends Person
         }
         return null;
     }
+    public static Deliver getDeliver(String name)
+    {
+        for (Deliver deliver:delivers)
+        {
+            if(deliver.name.equals(name))
+            {
+                return deliver;
+            }
+        }
+        return null;
+    }
 }

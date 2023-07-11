@@ -4,6 +4,7 @@ import GetID.GetRandomID;
 import LocationAndMap.ras;
 import Order.Restaurant;
 
+import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 
 public class RestaurantOwner extends Person
@@ -136,6 +137,17 @@ public class RestaurantOwner extends Person
         for(RestaurantOwner restaurantOwner:restaurantOwners)
         {
             if(restaurantOwner.ID==ownerID)
+            {
+                return restaurantOwner;
+            }
+        }
+        return null;
+    }
+    public static RestaurantOwner getRestaurantOwner(String name)
+    {
+        for(RestaurantOwner restaurantOwner:restaurantOwners)
+        {
+            if(restaurantOwner.name.equals(name))
             {
                 return restaurantOwner;
             }
