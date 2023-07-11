@@ -16,7 +16,7 @@ public class RestaurantOwner extends Person
 
 //////////////////////////////////////////////////////////////////////
 //constructors
-    RestaurantOwner(String Name,String Password)
+    public RestaurantOwner(String Name,String Password)
     {
         ID= GetRandomID.getID();
         name=Name;
