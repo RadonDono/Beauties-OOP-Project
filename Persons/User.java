@@ -28,6 +28,8 @@ public class User extends Person
         password=Password;
         location=Location;
         ID= GetRandomID.getID();
+        users.add(this);
+        Person.people.add(this);
     }
 //////////////////////////////////////////////////////////////////////
 //functions
