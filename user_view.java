@@ -1,5 +1,6 @@
+package view;
+
 public class user_view {
-    //comment ha dar in bakhsh be karbar nemayesh midahim
     void wellcome(){
         System.out.println("salam be snapfood asli khosh amadid!!!!");
     }
