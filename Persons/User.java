@@ -132,4 +132,13 @@ public class User extends Person
         }
         return null;
     }
+    public static User getUser(String name)
+    {
+        for (User user:users) {
+            if (user.name.equals(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
 }

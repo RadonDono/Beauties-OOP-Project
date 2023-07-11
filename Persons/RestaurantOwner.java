@@ -25,7 +25,6 @@ public class RestaurantOwner extends Person
         restaurantOwners.add(this);
         Person.people.add(this);
     }
-
 //////////////////////////////////////////////////////////////////////
 //functions
 

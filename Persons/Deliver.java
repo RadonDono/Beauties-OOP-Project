@@ -10,6 +10,7 @@ public class Deliver extends Person
     static ArrayList<Deliver> delivers=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //
+
     public Deliver(String Name,String Password)
     {
         ID= GetRandomID.getID();
@@ -18,7 +19,6 @@ public class Deliver extends Person
         role = Role.Deliver;
         delivers.add(this);
         Person.people.add(this);
-
     }
 
 

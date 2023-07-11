@@ -13,6 +13,7 @@ public abstract class Person
 //functions
     public int getID(){return ID;}
     public String getName(){return name;}
+    public Role getRole(){return role;}
 //////////////////////////////////////////////////////////////////////
 // static functions
     public static Person getPerson(int personID)
