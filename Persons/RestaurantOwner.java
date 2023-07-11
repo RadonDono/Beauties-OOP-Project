@@ -30,8 +30,7 @@ public class RestaurantOwner extends Person
 //////////////////////////////////////////////////////////////////////
 //functions
 
-    public int getID(){return ID;}
-    public String getName(){return name;}
+
     public String getPassword(){return password;}
     public boolean isItAnOwnedRestaurant(int restaurantID)
     {

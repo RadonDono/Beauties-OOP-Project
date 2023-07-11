@@ -33,8 +33,7 @@ public class User extends Person
     }
 //////////////////////////////////////////////////////////////////////
 //functions
-    public int getID(){return ID;}
-    public String getName(){return name;}
+
     public ras getLocation(){return location;}
     public int getCash(){return cash;}
 

@@ -11,6 +11,10 @@ public abstract class Person
     protected String name;
     protected String password;
 //////////////////////////////////////////////////////////////////////
+//functions
+    public int getID(){return ID;}
+    public String getName(){return name;}
+//////////////////////////////////////////////////////////////////////
 // static functions
     public static Person getPerson(int personID)
     {
