@@ -1,7 +1,5 @@
 package Persons;
 
-import LocationAndMap.ras;
-
 import java.util.ArrayList;
 
 public abstract class Person
@@ -10,7 +8,7 @@ public abstract class Person
     protected int ID;
     protected String name;
     protected String password;
-    protected Rule rule;
+    protected Role role;
 //////////////////////////////////////////////////////////////////////
 //functions
     public int getID(){return ID;}

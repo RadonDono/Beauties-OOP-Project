@@ -28,7 +28,7 @@ public class User extends Person
         password=Password;
         location=Location;
         ID= GetRandomID.getID();
-        rule=Rule.User;
+        role = Role.User;
         users.add(this);
         Person.people.add(this);
     }

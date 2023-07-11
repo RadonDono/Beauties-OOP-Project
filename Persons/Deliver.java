@@ -1,8 +1,6 @@
 package Persons;
 
 import GetID.GetRandomID;
-import LocationAndMap.ras;
-import Order.Restaurant;
 
 import java.util.ArrayList;
 
@@ -17,7 +15,7 @@ public class Deliver extends Person
         ID= GetRandomID.getID();
         name=Name;
         password=Password;
-        rule=Rule.Deliver;
+        role = Role.Deliver;
         delivers.add(this);
         Person.people.add(this);
 

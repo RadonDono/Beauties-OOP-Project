@@ -2,10 +2,8 @@ package Persons;
 
 import GetID.GetRandomID;
 import LocationAndMap.ras;
-import Order.Food;
 import Order.Restaurant;
 
-import java.awt.dnd.DragSource;
 import java.util.ArrayList;
 
 public class RestaurantOwner extends Person
@@ -23,7 +21,7 @@ public class RestaurantOwner extends Person
         ID= GetRandomID.getID();
         name=Name;
         password=Password;
-        rule=Rule.RestaurantOwner;
+        role = Role.RestaurantOwner;
         restaurantOwners.add(this);
         Person.people.add(this);
     }
