@@ -1,5 +1,6 @@
 package Persons;
 
+import GetID.GetRandomID;
 import LocationAndMap.ras;
 import Order.Restaurant;
 
@@ -11,7 +12,16 @@ public class Deliver extends Person
     static ArrayList<Deliver> delivers=new ArrayList<>();
 //////////////////////////////////////////////////////////////////////
 //
-    private ras location;
+    Deliver(String Name,String Password)
+    {
+        ID= GetRandomID.getID();
+        name=Name;
+        password=Password;
+        rule=Rule.Deliver;
+        delivers.add(this);
+        Person.people.add(this);
+
+    }
 
 
 

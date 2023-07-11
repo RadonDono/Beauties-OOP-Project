@@ -10,6 +10,7 @@ public abstract class Person
     protected int ID;
     protected String name;
     protected String password;
+    protected Rule rule;
 //////////////////////////////////////////////////////////////////////
 //functions
     public int getID(){return ID;}

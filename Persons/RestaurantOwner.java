@@ -23,6 +23,7 @@ public class RestaurantOwner extends Person
         ID= GetRandomID.getID();
         name=Name;
         password=Password;
+        rule=Rule.RestaurantOwner;
         restaurantOwners.add(this);
         Person.people.add(this);
     }

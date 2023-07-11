@@ -22,12 +22,13 @@ public class User extends Person
 
 //////////////////////////////////////////////////////////////////////
 //constructors
-    User(String Name, String Password, ras Location)
+    public User(String Name, String Password, ras Location)
     {
         name=Name;
         password=Password;
         location=Location;
         ID= GetRandomID.getID();
+        rule=Rule.User;
         users.add(this);
         Person.people.add(this);
     }
