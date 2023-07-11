@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 public abstract class Person
 {
-    public static ArrayList<Person> people=new ArrayList<>();
+    static ArrayList<Person> people=new ArrayList<>();
     protected int ID;
     protected String name;
     protected String password;
-
-    static Person getPerson(int personID)
+//////////////////////////////////////////////////////////////////////
+// static functions
+    public static Person getPerson(int personID)
     {
         for(Person person:people)
         {
@@ -21,6 +22,17 @@ public abstract class Person
             }
         }
         return null;
+    }
+    public static Person login(String name,String password)
+    {
+        for(Person person:people)
+        {
+            if(person.name.equals(name)&&person.password.equals(password))
+            {
+                return person;
+            }
+            return null;
+        }
     }
 
 }
