@@ -18,6 +18,7 @@ public class User extends Person
     private ArrayList<Integer> commentIDs=new ArrayList<>();
     private ArrayList<Integer> finishedOrdersID=new ArrayList<>();
     private ArrayList<Integer> inProgressOrdersID=new ArrayList<>();
+    private ArrayList<Integer> cart=new ArrayList<>();
     private ras location;
 
 //////////////////////////////////////////////////////////////////////
@@ -41,11 +42,11 @@ public class User extends Person
     public void newOrder(int RestaurantID) //when you want to start a new order
     {
         Order newOrder=new Order(ID,RestaurantID);
-        inProgressOrdersID.add(newOrder.getOrderID());
+        cart.add(newOrder.getOrderID());
     }
     public void addFoodToOrder(int foodID,int orderID)  //add food to an in progress order
     {
-        if(isItAInProgressOrder(orderID))
+        if(isItInCart(orderID))
         {
             Order order=Order.getOrder(orderID);
             order.addFood(foodID);
@@ -53,7 +54,7 @@ public class User extends Person
     }
     public void removeFoodFromOrder(int foodID,int orderID)  //remove food from an in progress order
     {
-        if(isItAInProgressOrder(orderID))
+        if(isItInCart(orderID))
         {
             Order order=Order.getOrder(orderID);
             order.removeFood(foodID);
@@ -61,16 +62,18 @@ public class User extends Person
     }
     public void sendAnOrderToTheRestaurant(int orderID) //when you finish ordering
     {
-        if(isItAInProgressOrder(orderID))
+        if(isItInCart(orderID))
         {
             Order order=Order.getOrder(orderID);
+            cart.remove(orderID);
+            inProgressOrdersID.add(orderID);
             order.setStatus(Status.NeedRestaurantAccept);
             cash-=order.price();
         }
     }
     public void cancelAnOrder(int orderID)
     {
-        if(isItAInProgressOrder(orderID))
+        if(isItAInProgressOrder(orderID)||isItInCart(orderID))
         {
             Order order=Order.getOrder(orderID);
             cash+= order.price();
@@ -110,6 +113,17 @@ public class User extends Person
     boolean isItAInProgressOrder(int orderID)
     {
         for(int ID:inProgressOrdersID)
+        {
+            if(ID==orderID)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    boolean isItInCart(int orderID)
+    {
+        for (int ID:cart)
         {
             if(ID==orderID)
             {
