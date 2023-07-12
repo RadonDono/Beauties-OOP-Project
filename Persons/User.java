@@ -4,6 +4,7 @@ import GetID.GetRandomID;
 import LocationAndMap.ras;
 import Order.Order;
 import Order.Status;
+import Order.Restaurant;
 
 import java.util.ArrayList;
 
@@ -95,6 +96,28 @@ public class User extends Person
     public void getAComment(int commentID)
     {
         commentIDs.add(commentID);
+    }
+    public void cleanCart()
+    {
+        for (int ID:cart)
+        {
+            if(Order.getOrder(ID).getFoodIDs().size()==0)
+            {
+                cart.remove(ID);
+            }
+        }
+    }
+    public int getOrderIDbyRestaurant(int restaurantID)
+    {
+        for(int ID:cart)
+        {
+            if(Order.getOrder(ID).getRestaurantID()==restaurantID)
+            {
+                return ID;
+            }
+        }
+        newOrder(restaurantID);
+        return getOrderIDbyRestaurant(restaurantID);
     }
 
     public void rateAndCommentAnOrder(int orderID,int rate,String comment)// A user will rate and comment an order in range (1,5)
