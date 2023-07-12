@@ -1,5 +1,4 @@
 package Order;
-
 import GetID.GetRandomID;
 import LocationAndMap.ras;
 
@@ -7,14 +6,14 @@ import java.util.ArrayList;
 
 public class Restaurant
 {
-    static ArrayList<Restaurant> restaurants=new ArrayList<>();
+    public static ArrayList<Restaurant> restaurants=new ArrayList<>();
     //////////////////////////////////////////////////////////////////////
 //
     private final int restaurantID;
     private final int ownerID;
     private String name;
     private String foodType;
-    private ArrayList<Food> activeFoods =new ArrayList<>();
+    public ArrayList<Food> activeFoods =new ArrayList<>();
     private ArrayList<Food> deActiveFoods =new ArrayList<>();
     private ArrayList<Comment> receivedComments =new ArrayList<>();
     private ArrayList<Order> receivedOrders=new ArrayList<>();
@@ -24,7 +23,7 @@ public class Restaurant
 
     //////////////////////////////////////////////////////////////////////
 //constructors
-    Restaurant(String Name,int OwnerID,String FoodType,ras Location)
+    public Restaurant(String Name, int OwnerID, String FoodType, ras Location)
     {
         name=Name;
         ownerID=OwnerID;
@@ -42,7 +41,14 @@ public class Restaurant
     public String getName(){return name;}
 
     public String getFoodType(){return foodType;}
-    public void receiveAComment(int commentID){receivedComments.add(Comment.getComment(commentID));}
+    //ezafshose
+    public ArrayList<String> getFood(){
+        ArrayList<String> s=new ArrayList();
+        for (int i = 0; i <activeFoods.size() ; i++) {
+            s.add(activeFoods.get(i).toString());
+        }
+        return s;
+    }
 
     public void changeFoodType(String FoodType)
     {
@@ -166,5 +172,10 @@ public class Restaurant
             }
         }
         return null;
+    }
+    //ezaf shod
+    @Override
+    public String toString() {
+        return "Restaurant : "+this.name+ " "+this.foodType+" "+this.restaurantID;
     }
 }

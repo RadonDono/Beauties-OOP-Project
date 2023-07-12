@@ -1,14 +1,13 @@
 package Order;
 
 import GetID.GetRandomID;
-import Persons.User;
 
 import java.util.ArrayList;
 
 public class Comment
 {
     static ArrayList<Comment> comments=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //
     private String body;
     private final int commentID;
@@ -18,7 +17,7 @@ public class Comment
     private boolean respond=false;
     private String respondBody;
     private ArrayList<Integer> foodIDs=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //constructors
     Comment(int OrderID,int UserID,String Body)
     {
@@ -34,8 +33,7 @@ public class Comment
         {
             Food.getFood(order.getFoodIDs().get(i)).addComment(this);
         }
-        User.getUser(userID).getAComment(commentID);
-        Restaurant.getRestaurant(restaurantID).receiveAComment(commentID);
+        Restaurant.getRestaurant(restaurantID).receiveAnOrder(commentID);
 
     }
 //////////////////////////////////////////////////////////////////////
@@ -54,7 +52,7 @@ public class Comment
     }
 
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //static functions
     static Comment getComment(int commentID) //searching comments using their IDs
     {

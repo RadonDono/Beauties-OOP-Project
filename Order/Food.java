@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Food
 {
     static ArrayList<Food> foods=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //
     private final int foodID;
     private final int restaurantID;
@@ -17,7 +17,7 @@ public class Food
     private boolean active;
     private ArrayList<Integer> rating=new ArrayList<>();
     private ArrayList<Comment> comments=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //constructors
     public Food(String Name,int RestaurantID,int Price)
     {
@@ -31,7 +31,7 @@ public class Food
     //////////////////////////////////////////////////////////////////////
 //functions
     int getRestaurantID() {return restaurantID;} //Breaking news: It gives you restaurantID
-    String getName(){return name;} // JOJO DI DI DIN DIN DIN DIN DIN DIN GOLDEN WIND
+    public String getName(){return name;} // JOJO DI DI DIN DIN DIN DIN DIN DIN GOLDEN WIND
     int getFoodID(){return foodID;}
     int getPrice() //it gives you the price after calculating the discount
     {
@@ -70,7 +70,7 @@ public class Food
 
     //////////////////////////////////////////////////////////////////////
 //static functions
-    static Food getFood(int foodID) //searching foods using their IDs
+    public static Food getFood(int foodID) //searching foods using their IDs
     {
         for(Food food : foods)
         {
@@ -91,6 +91,11 @@ public class Food
                 foods.remove(food);
             }
         }
+    }
+    //ezafshod
+    @Override
+    public String toString() {
+        return "Food : "+this.name+ " price:"+this.price+" takhfif:"+this.localDiscount+" "+this.restaurantID;
     }
 
 }
