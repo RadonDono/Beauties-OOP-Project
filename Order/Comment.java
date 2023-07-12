@@ -1,6 +1,7 @@
 package Order;
 
 import GetID.GetRandomID;
+import Persons.User;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,8 @@ public class Comment
         {
             Food.getFood(order.getFoodIDs().get(i)).addComment(this);
         }
-        Restaurant.getRestaurant(restaurantID).receiveAnOrder(commentID);
+        User.getUser(userID).getAComment(commentID);
+        Restaurant.getRestaurant(restaurantID).receiveAComment(commentID);
 
     }
 //////////////////////////////////////////////////////////////////////

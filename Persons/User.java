@@ -92,6 +92,10 @@ public class User extends Person
             }
         }
     }
+    public void getAComment(int commentID)
+    {
+        commentIDs.add(commentID);
+    }
 
     public void rateAndCommentAnOrder(int orderID,int rate,String comment)// A user will rate and comment an order in range (1,5)
     {

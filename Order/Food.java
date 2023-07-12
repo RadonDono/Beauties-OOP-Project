@@ -28,7 +28,7 @@ public class Food
         active=true;
         foods.add(this);
     }
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //functions
     int getRestaurantID() {return restaurantID;} //Breaking news: It gives you restaurantID
     String getName(){return name;} // JOJO DI DI DIN DIN DIN DIN DIN DIN GOLDEN WIND
@@ -68,7 +68,7 @@ public class Food
     public void setDiscount(int percent){localDiscount=percent;}
 
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //static functions
     static Food getFood(int foodID) //searching foods using their IDs
     {

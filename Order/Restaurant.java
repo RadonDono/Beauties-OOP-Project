@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Restaurant
 {
     static ArrayList<Restaurant> restaurants=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //
     private final int restaurantID;
     private final int ownerID;
@@ -22,7 +22,7 @@ public class Restaurant
     private ArrayList<Order> finishedOrders=new ArrayList<>();
     private ras location;
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //constructors
     Restaurant(String Name,int OwnerID,String FoodType,ras Location)
     {
@@ -34,7 +34,7 @@ public class Restaurant
         restaurants.add(this);
     }
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //functions
     public int getRestaurantID(){return restaurantID;}
 
@@ -42,6 +42,7 @@ public class Restaurant
     public String getName(){return name;}
 
     public String getFoodType(){return foodType;}
+    public void receiveAComment(int commentID){receivedComments.add(Comment.getComment(commentID));}
 
     public void changeFoodType(String FoodType)
     {
@@ -50,7 +51,7 @@ public class Restaurant
     }
     public void receiveAnOrder(int orderID) //look at the name
     {
-           receivedOrders.add(Order.getOrder(orderID));
+        receivedOrders.add(Order.getOrder(orderID));
     }
     public void acceptAnOrder(int orderID) // :) 8--->
     {
@@ -155,7 +156,7 @@ public class Restaurant
     }
 
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //static functions
     public static Restaurant getRestaurant(int restaurantID) //search restaurants using their IDs
     {
@@ -167,4 +168,3 @@ public class Restaurant
         return null;
     }
 }
-
