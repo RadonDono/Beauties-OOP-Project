@@ -10,7 +10,7 @@ public class Order
 {
 
     static ArrayList<Order> orders=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //
     private final int orderID;
     private ArrayList<Integer> foodIDs=new ArrayList<>();
@@ -20,7 +20,7 @@ public class Order
     private Status status;
     private path masir;
     private Comment comment;
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //constructors
     public Order(int UserID,int RestaurantID)
     {
@@ -33,7 +33,7 @@ public class Order
         masir=new path(Restaurant.getRestaurant(RestaurantID).getLocation(), User.getUser(userID).getLocation());
     }
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //functions
     public int getOrderID(){return orderID;}
     public Status getStatus(){return status;}
@@ -153,7 +153,7 @@ public class Order
     }
 
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //static functions
     public static Order getOrder(int orderID) //searching order using their IDs
     {
@@ -165,5 +165,14 @@ public class Order
             }
         }
         return null;
+    }
+    @Override
+    public String toString() {
+        String x= "Order : "+this.orderID+ " ";
+        for (int id:foodIDs) {
+            x+=Food.getFood(id).toString()+"\n";
+        }
+        x+=+this.price();
+        return x;
     }
 }
