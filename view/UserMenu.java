@@ -1,6 +1,8 @@
 package view;
 
 import LocationAndMap.ras;
+import Order.Comment;
+import Order.Food;
 import controller.UserController;
 import Persons.User;
 import enums.Message;
@@ -12,12 +14,12 @@ import java.util.ArrayList;
 public class UserMenu extends Menu{
     static User user=null;
 
-    private final UserController controller;
+    UserController controller;
 
     // Singleton Pattern
     public UserMenu(User us) {
         user = us;
-        this.controller = UserController.getInstance();
+        this.controller = new UserController(us);
     }
 
     @Override
@@ -45,6 +47,9 @@ public class UserMenu extends Menu{
                 this.showstatus();
                 break;
         case "5":
+        case "comment":
+            this.usercomment();
+        case "6":
         case "exit":
             this.exit();
             break;
@@ -55,6 +60,7 @@ public class UserMenu extends Menu{
     }
 
     private void showstatus() {
+
         System.out.println("what do you want to do?");
         System.out.println("1. confirm");
         System.out.println("2. exit");
@@ -121,6 +127,7 @@ public class UserMenu extends Menu{
                 break;
             case "3":
             case "exit":
+                this.user.cleanCart();
                 this.run();
                 break;
             default:
@@ -137,9 +144,10 @@ public class UserMenu extends Menu{
             case "1":
             case "select":
                 String username = this.getInput("enter ID");
-
+                user.newOrder(Integer.parseInt(username));
+                controller.orderidres=Integer.parseInt(username);
                 Message message = this.controller.selectrestaurant(username);
-                System.out.println(message == Message.SUCCESS ? "customer registered successfully" : message);
+                System.out.println(message == Message.SUCCESS ? "login in restaurant successfully" : message);
                 if (message == Message.SUCCESS){
                     showMenu();
                 }
@@ -172,13 +180,90 @@ public class UserMenu extends Menu{
                 this.searchmenu();
                 break;
             case "3":
+            case "comment":
+                this.showRestaurantcomment();
+                break;
+            case "4":
             case "exit":
                 this.showRestaurant();
                 break;
             default:
                 System.out.println(Message.INVALID_CHOICE);
         }
-        this.searchrestaurant();
+        this.showMenu();
+
+    }
+
+    private void showRestaurantcomment(){
+        for (Comment com:this.controller.restaurant_now.receivedComments) {
+            System.out.println(com);
+        }
+        System.out.println("what do you want to do?");
+        System.out.println("1. addcomment");
+        System.out.println("2. editcoment");
+        System.out.println("3. rate");
+        System.out.println("4. exit");
+        String choice = this.getChoice();
+
+        switch (choice) {
+            case "1":
+            case "addcomment":
+                this.addrestaurantcomment();
+                break;
+
+            case "2":
+            case "editcomment":
+                this.editrestaurantcomment();
+                break;
+            case "3":
+            case "rate":
+                this.raterest();
+            case "4":
+            case "exit":
+                this.showMenu();
+                break;
+            default:
+                System.out.println(Message.INVALID_CHOICE);
+        }
+        this.showRestaurantcomment();
+
+
+    }
+
+    private void raterest() {
+        System.out.println(this.controller.getrate());
+        System.out.println("what do you want to do?");
+        System.out.println("1. addrate");
+        System.out.println("2. exit");
+        String choice = this.getChoice();
+
+        switch (choice) {
+            case "1":
+            case "addrate":
+                String username = this.getInput("enter rate:");
+                Message message = this.controller.addrate(Integer.parseInt(username));
+                System.out.println(message == Message.SUCCESS ? "rated successfully" : message);
+                this.addrestaurantcomment();
+                break;
+            case "2":
+            case "exit":
+                this.showRestaurantcomment();
+                break;
+            default:
+                System.out.println(Message.INVALID_CHOICE);
+        }
+    }
+
+    private void addrestaurantcomment() {
+        String username = this.getInput("enter Comment:");
+        System.out.println(this.controller.addrestaurantcomment(username));
+        showRestaurantcomment();
+    }
+
+    private void editrestaurantcomment() {
+        String username = this.getInput("enter Comment:");
+        System.out.println(this.controller.editrestaurantcomment(username));
+        showRestaurantcomment();
 
     }
 
@@ -197,7 +282,10 @@ public class UserMenu extends Menu{
     }
 
     private void showSelectfood() {
-        showselectOptions();
+        System.out.println("what do you want to do?");
+        System.out.println("1. select");
+        System.out.println("2. comment");
+        System.out.println("3. exit");
         String choice = this.getChoice();
 
         switch (choice) {
@@ -206,7 +294,7 @@ public class UserMenu extends Menu{
                 String username = this.getInput("enter ID");
 
                 Message message = this.controller.selectfood(username);
-                System.out.println(message == Message.SUCCESS ? "customer registered successfully" : message);
+                System.out.println(message == Message.SUCCESS ? "food selected successfully" : message);
                 if (message == Message.SUCCESS){
                     this.run();
                 }
@@ -215,12 +303,54 @@ public class UserMenu extends Menu{
                 }
                 break;
             case "2":
+            case "comment":
+                String usernam = this.getInput("enter ID");
+                this.foodcomment(usernam);
+                break;
+            case "3":
             case "exit":
-                this.exit();
+                this.showMenu();
                 break;
             default:
                 System.out.println(Message.INVALID_CHOICE);
         }
+    }
+
+    private void foodcomment(String x) {
+        for (Comment com : this.controller.getfoodcomment(Integer.parseInt(x))) {
+            System.out.println(com);
+        }
+        this.showSelectfood();
+    }
+    void ordercomment(){
+        System.out.println("what do you want to do?");
+        System.out.println("1. addcomment");
+        System.out.println("2. editcoment");
+        System.out.println("3. rate");
+        System.out.println("4. exit");
+        String choice = this.getChoice();
+
+        switch (choice) {
+            case "1":
+            case "addcomment":
+                this.addordercomment();
+                break;
+
+            case "2":
+            case "editcomment":
+                this.editrordercomment();
+                break;
+            case "3":
+            case "rate":
+                this.rateorder();
+            case "4":
+            case "exit":
+                this.run();
+                break;
+            default:
+                System.out.println(Message.INVALID_CHOICE);
+        }
+        this.ordercomment();
     }
 
     private void showMenuOptions() {
@@ -233,13 +363,14 @@ public class UserMenu extends Menu{
     private void showselectOptions() {
         System.out.println("what do you want to do?");
         System.out.println("1. select");
-        System.out.println("3. exit");
+        System.out.println("2. exit");
     }
 
     private void showRestaurantoption() {
         System.out.println("what do you want to do?");
         System.out.println("1. select");
         System.out.println("2. search");
+        System.out.println("2. comment");
         System.out.println("3. exit");
     }
 
@@ -259,11 +390,35 @@ public class UserMenu extends Menu{
     }
 
     private void Showorders() {
-        
+        for (int orderid:user.finishedOrdersID) {
+            System.out.println("Order :"+orderid);
+
+        }
+        System.out.println("what do you want to do?");
+        System.out.println("1. information");
+        System.out.println("2. exit");
+        String choice = this.getChoice();
+
+        switch (choice) {
+            case "1":
+            case "information":
+                String Id = this.getInput("enter ID:");
+                String message = this.controller.showorder(Integer.parseInt(Id));
+                System.out.println(message);
+                Showorders();
+                break;
+            case "2":
+            case "exit":
+                this.run();
+                break;
+            default:
+                System.out.println(Message.INVALID_CHOICE);
+        }
+        this.Showorders();
     }
 
     private void Charge_Account() {
-        controller.user.showmoney();
+        System.out.println(this.controller.usercon.getCash());
         System.out.println("what do you want to do?");
         System.out.println("1. charge");
         System.out.println("2. exit");
@@ -301,8 +456,9 @@ public class UserMenu extends Menu{
             System.out.println("1. restaurants");
             System.out.println("2. orders");
             System.out.println("3. charge account");
-            //todo: comment
-        System.out.println("4. exit");
+        System.out.println("4. status");
+        System.out.println("5. comment");
+        System.out.println("6. exit");
     }
 
 }

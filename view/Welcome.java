@@ -1,4 +1,5 @@
 package view;
+import Persons.RestaurantOwner;
 import Persons.User;
 import controller.WelcomeController;
 import enums.Message;
@@ -65,6 +66,8 @@ public class Welcome extends Menu {
 
         String message = this.controller.handleLogin(username, password);
         if (message.equals("RestaurantOwner")) {
+            RestaurantOwnerMenu restaurantOwnerMenu=new RestaurantOwnerMenu(RestaurantOwner.getRestaurantOwner(username));
+            restaurantOwnerMenu.run();
 
         } else if (message.equals("User")) {
             UserMenu userMenu=new UserMenu(User.getUser(username));
@@ -77,8 +80,9 @@ public class Welcome extends Menu {
             Message messag = this.controller.handlerestore(username,ID);
         } else {
             System.out.println(message);
+            this.login();
         }
-        this.login();
+        this.run();
     }
 
     private void register() {
@@ -112,8 +116,14 @@ public class Welcome extends Menu {
     private void registerAdmin() {
         String username = this.getInput("enter username");
         String password = this.getInput("enter password");
-
+        String number=("how much restaurant do you have?");
         Message message = this.controller.handleCreateAdmin(username, password);
+        for (int i = 0; i <Integer.parseInt(number) ; i++) {
+            String name = this.getInput("enter name");
+            String type = this.getInput("enter type");
+            String loc = this.getInput("enter loc");
+            Message messag = this.controller.handleCreateRestaurant(username, this.controller.restaurantOwner.getID(),type,loc);
+        }
         System.out.println(message == Message.SUCCESS ? "admin registered successfully" : message);
     }
     private void registerDelivery() {

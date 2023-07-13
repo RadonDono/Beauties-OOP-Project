@@ -1,4 +1,5 @@
 package controller;
+import Order.Restaurant;
 import Persons.Deliver;
 import Persons.Person;
 import Persons.RestaurantOwner;
@@ -9,6 +10,7 @@ import LocationAndMap.*;
 
 public class WelcomeController {
     private static WelcomeController instance = null;
+    public RestaurantOwner restaurantOwner=null;
 
     private WelcomeController() {
 
@@ -81,7 +83,7 @@ public class WelcomeController {
         if ((message = this.validatePassword(password)) != Message.SUCCESS) {
             return message;
         }
-        new RestaurantOwner(username, password);
+        restaurantOwner=new RestaurantOwner(username, password);
         return Message.SUCCESS;
     }
     public Message handleCreateDelivery(String username, String password) {
@@ -107,5 +109,11 @@ public class WelcomeController {
         }
 
         return Message.WRONG_CREDENTIALS;
+    }
+
+    public Message handleCreateRestaurant(String username, int id, String type, String parseInt) {
+        Restaurant restaurant=new Restaurant(username,id,type,get_loc(parseInt));
+        restaurantOwner.ownedRestaurants.add(restaurant);
+        return Message.SUCCESS;
     }
 }
