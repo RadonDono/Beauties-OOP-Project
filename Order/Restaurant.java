@@ -59,6 +59,7 @@ public class Restaurant
     {
         receivedOrders.add(Order.getOrder(orderID));
     }
+    public void receiveAComment(int commentID){receivedComments.add(Comment.getComment(commentID));}
     public void acceptAnOrder(int orderID) // :) 8--->
     {
         receivedOrders.remove(Order.getOrder(orderID));
