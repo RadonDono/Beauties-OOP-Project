@@ -4,7 +4,6 @@ import GetID.GetRandomID;
 import LocationAndMap.ras;
 import Order.Order;
 import Order.Status;
-import Order.Restaurant;
 
 import java.util.ArrayList;
 
@@ -13,16 +12,16 @@ public class User extends Person
     //TODO: Complete It!!!
     private static ArrayList<User> users=new ArrayList<>();
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //
     private int cash;
     private ArrayList<Integer> commentIDs=new ArrayList<>();
-    private ArrayList<Integer> finishedOrdersID=new ArrayList<>();
-    private ArrayList<Integer> inProgressOrdersID=new ArrayList<>();
-    private ArrayList<Integer> cart=new ArrayList<>();
+    public ArrayList<Integer> finishedOrdersID=new ArrayList<>();
+    public ArrayList<Integer> inProgressOrdersID=new ArrayList<>();
+    public ArrayList<Integer> cart=new ArrayList<>();
     private ras location;
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //constructors
     public User(String Name, String Password, ras Location)
     {
@@ -39,6 +38,7 @@ public class User extends Person
 
     public ras getLocation(){return location;}
     public int getCash(){return cash;}
+    public int getId(){return ID;}
 
     public void newOrder(int RestaurantID) //when you want to start a new order
     {
@@ -131,6 +131,17 @@ public class User extends Person
             }
         }
     }
+    public void CommentAnOrder(int orderID,String comment)// A user will rate and comment an order in range (1,5)
+    {
+        if(isItAInProgressOrder(orderID))
+        {
+            Order order=Order.getOrder(orderID);
+            if(order.getStatus().equals(Status.Delivered))
+            {
+                order.AddComment(ID,comment);
+            }
+        }
+    }
 
     public void chargeAccount(int charge)
     {
@@ -162,7 +173,7 @@ public class User extends Person
 
 
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //static functions
     public static User getUser(int UserID)
     {

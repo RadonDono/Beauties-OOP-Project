@@ -14,13 +14,14 @@ public class Restaurant
     private String name;
     private String foodType;
     public ArrayList<Food> activeFoods =new ArrayList<>();
-    private ArrayList<Food> deActiveFoods =new ArrayList<>();
-    private ArrayList<Comment> receivedComments =new ArrayList<>();
-    private ArrayList<Order> receivedOrders=new ArrayList<>();
-    private ArrayList<Order> currentOrders=new ArrayList<>();
-    private ArrayList<Order> finishedOrders=new ArrayList<>();
+    public ArrayList<Food> deActiveFoods =new ArrayList<>();
+    public ArrayList<Comment> receivedComments =new ArrayList<>();
+    public ArrayList<Order> receivedOrders=new ArrayList<>();
+    public ArrayList<Order> currentOrders=new ArrayList<>();
+    public ArrayList<Order> finishedOrders=new ArrayList<>();
     private ras location;
 
+    private ArrayList<Integer> rating=new ArrayList<>();
     //////////////////////////////////////////////////////////////////////
 //constructors
     public Restaurant(String Name, int OwnerID, String FoodType, ras Location)
@@ -161,7 +162,17 @@ public class Restaurant
         }
         return false;
     }
-
+    public Double getRate() {
+        Double sum= Double.valueOf(0);
+        for (int x:rating) {
+            sum+=x;
+        }
+        return (Double) sum/rating.size();
+    }
+    public void rate(int Rating) //a user will use this to rate
+    {
+        rating.add(Rating);
+    }
 
     //////////////////////////////////////////////////////////////////////
 //static functions
@@ -179,4 +190,6 @@ public class Restaurant
     public String toString() {
         return "Restaurant : "+this.name+ " "+this.foodType+" "+this.restaurantID;
     }
+
+
 }

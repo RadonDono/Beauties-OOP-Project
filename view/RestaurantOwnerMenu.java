@@ -75,10 +75,16 @@ public class RestaurantOwnerMenu extends Menu{
         switch (choice) {
             case "1":
             case "edit":
-                String mokh = this.getInput("enter new location");
-                this.controller.editlocation(Integer.parseInt(mokh));
-                System.out.println("edited successfully");
-                break;
+                String name = this.getInput("enter new foodtype");
+                if(!this.controller.checkprogressrestaurantfoods().equals(Message.progressfood)) {
+                    String sure = this.getInput("Are you sure?");
+                    if (sure.equals("yes")) {
+                        Message message = this.controller.changefoodtype(name);
+                        System.out.println(message == Message.SUCCESS ? "changed successfully" : message);
+                    }
+                }else {
+                    System.out.println("foods are in progress");
+                }
             case "2":
             case "exit":
                 break;
@@ -115,7 +121,49 @@ public class RestaurantOwnerMenu extends Menu{
     }
 
     private void Showorders() {
-        ArrayList<String> orders=this.controller.showordr();
+        ArrayList<String> reciveorders=this.controller.showrecived_order();
+        ArrayList<String> finishorders=this.controller.showrecived_order();
+        ArrayList<String> currentorders=this.controller.showrecived_order();
+        System.out.println("recived orders:");
+        showarray(reciveorders);
+        System.out.println("current orders:");
+        showarray(currentorders);
+        System.out.println("finished orders:");
+        showarray(finishorders);
+        System.out.println("1. edit");
+        System.out.println("2. exit");
+        String choice = this.getChoice();
+
+        switch (choice) {
+            case "1":
+            case "edit":
+                showeditoreder();
+                System.out.println("edited successfully");
+                break;
+            case "2":
+            case "exit":
+                break;
+            default:
+                System.out.println(Message.INVALID_CHOICE);
+
+        }
+        this.option();
+    }
+
+    private void showeditoreder() {
+        String orderid = this.getInput("enter orderid");
+        String status = this.getInput("enter new status");
+        String time = this.getInput("enter new time");
+
+        Message message = this.controller.editorder(orderid, status,time);
+        System.out.println(message == Message.SUCCESS ? "" : message);
+    }
+
+    void showarray(ArrayList<String> x){
+        for (String m:x) {
+            System.out.println(m);
+        }
+
     }
 
     private void showmenu() {
@@ -195,23 +243,45 @@ public class RestaurantOwnerMenu extends Menu{
 
         switch (choice) {
             case "1":
-            case "register":
-                this.register();
+            case "respond":
+                this.setrespond();
                 break;
 
             case "2":
-            case "login":
-                this.login();
+            case "edit":
+                this.editrespond();
                 break;
 
             case "3":
             case "exit":
-                this.exit();
                 break;
             default:
                 System.out.println(Message.INVALID_CHOICE);
 
         }
+        showmenu();
+    }
+
+    private void editrespond() {
+        String Id = this.getInput("enter comment Id");
+        String respond = this.getInput("enter respond");
+        controller.setrespond(Id,respond);
+        System.out.println("respond added successfully");
+        showrespond();
+    }
+
+    private void setrespond() {
+        String Id = this.getInput("enter comment Id");
+        if (!this.controller.hasrespond(Id)) {
+            String respond = this.getInput("enter respond");
+            controller.setrespond(Id,respond);
+            System.out.println("respond added successfully");
+        }
+        else{
+            System.out.println("you have already a respond");
+            setrespond();
+        }
+        showrespond();
     }
 
     private void showrate() {

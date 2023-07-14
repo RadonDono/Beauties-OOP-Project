@@ -1,6 +1,5 @@
 package Persons;
 
-public enum Role
-{
-    Deliver,User,RestaurantOwner
+public enum Role {
+    Deliver,User,RestaurantOwner;
 }

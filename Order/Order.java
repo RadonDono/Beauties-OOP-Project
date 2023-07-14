@@ -122,6 +122,16 @@ public class Order
             }
         }
     }
+    public void AddComment(int userID,String comment) //the user set a single rating and comment for all off the foods in an order
+    {
+        if(userID==this.userID)
+        {
+            for(int i=0;i<foodIDs.size();i++)
+            {
+                this.comment=new Comment(foodIDs.get(i),userID,comment);
+            }
+        }
+    }
     public void rate(int userID,int rating)
     {
         if(userID==this.userID)

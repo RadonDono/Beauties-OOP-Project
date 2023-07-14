@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Comment
 {
     static ArrayList<Comment> comments=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //
     private String body;
     private final int commentID;
@@ -18,7 +18,7 @@ public class Comment
     private boolean respond=false;
     private String respondBody;
     private ArrayList<Integer> foodIDs=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //constructors
     public Comment(int OrderID,int UserID,String Body)
     {
@@ -38,13 +38,23 @@ public class Comment
         Restaurant.getRestaurant(restaurantID).receiveAComment(commentID);
 
     }
+    public Comment(int UserID, String Body, int orderID, int RestaurantID)
+    {
+        userID=UserID;
+        this.orderID = orderID;
+        restaurantID= RestaurantID;
+        commentID= GetRandomID.getID();
+        body=Body;
+        comments.add(this);
+
+    }
 //////////////////////////////////////////////////////////////////////
 //functions
 
     boolean getRespond(){return respond;}
     int getCommentID(){return commentID;}
 
-    void setRespond(String RespondBody) //let's set respond!
+    public void setRespond(String RespondBody) //let's set respond!
     {
         if(!respond)
         {
@@ -52,9 +62,17 @@ public class Comment
             respondBody=RespondBody;
         }
     }
-
-
-//////////////////////////////////////////////////////////////////////
+    public static void editcomment(int commentID,String commentbody) //searching comments using their IDs
+    {
+        for (Comment comment : comments)
+        {
+            if (comment.commentID==commentID)
+            {
+                comment.body=commentbody;
+            }
+        }
+    }
+    //////////////////////////////////////////////////////////////////////
 //static functions
     public static Comment getComment(int commentID) //searching comments using their IDs
     {
@@ -66,5 +84,13 @@ public class Comment
             }
         }
         return null;
+    }
+    @Override
+    public String toString() {
+        if(respond==true) {
+            return "Comment "+this.commentID+":"+this.body + " from" + User.getUser(this.userID) + " to" + Restaurant.getRestaurant(restaurantID) + "\n"+"respond: "+respondBody;
+        }
+        return "Comment : "+this.commentID+": "+ this.body + " from" + User.getUser(this.userID) + " to" + Restaurant.getRestaurant(restaurantID);
+
     }
 }

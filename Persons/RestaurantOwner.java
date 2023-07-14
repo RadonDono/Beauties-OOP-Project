@@ -4,18 +4,17 @@ import GetID.GetRandomID;
 import LocationAndMap.ras;
 import Order.Restaurant;
 
-import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 
 public class RestaurantOwner extends Person
 {
     //TODO: Complete It!!!
     static ArrayList<RestaurantOwner> restaurantOwners=new ArrayList<>();
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //
-    ArrayList<Restaurant> ownedRestaurants=new ArrayList<>();
+    public ArrayList<Restaurant> ownedRestaurants=new ArrayList<>();
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //constructors
     public RestaurantOwner(String Name,String Password)
     {
@@ -26,10 +25,12 @@ public class RestaurantOwner extends Person
         restaurantOwners.add(this);
         Person.people.add(this);
     }
+
 //////////////////////////////////////////////////////////////////////
 //functions
 
-
+    public int getID(){return ID;}
+    public String getName(){return name;}
     public String getPassword(){return password;}
     public boolean isItAnOwnedRestaurant(int restaurantID)
     {
@@ -130,7 +131,7 @@ public class RestaurantOwner extends Person
     }
 
 
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 //static functions
     public static RestaurantOwner getRestaurantOwner(int ownerID)
     {
@@ -145,15 +146,12 @@ public class RestaurantOwner extends Person
     }
     public static RestaurantOwner getRestaurantOwner(String name)
     {
-        for(RestaurantOwner restaurantOwner:restaurantOwners)
-        {
-            if(restaurantOwner.name.equals(name))
-            {
-                return restaurantOwner;
+        for (RestaurantOwner user:restaurantOwners) {
+            if (user.name.equals(name)) {
+                return user;
             }
         }
         return null;
     }
-
 
 }

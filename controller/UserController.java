@@ -8,6 +8,7 @@ import enums.Message;
 import Persons.User;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UserController {
     public User usercon=null;
@@ -85,7 +86,8 @@ public class UserController {
         return s;
     }
 
-    public void showtime() {
+    public int showtime() {
+        return GetRandomID.getID()%100;
     }
 
     public Message addrestaurantcomment(String com) {
@@ -93,6 +95,48 @@ public class UserController {
         return Message.commentadded;
     }
 
-    public Message editrestaurantcomment(String username) {
+    public Message editrestaurantcomment(int id,String username) {
+        Comment.editcomment(id,username);
+        return Message.SUCCESS;
+    }
+
+    public ArrayList<Comment> getfoodcomment(int foodid) {
+        return Food.getFood(foodid).getcomment();
+    }
+
+    public Double getrate() {
+        return restaurant_now.getRate();
+    }
+
+    public Message addrate(int rate) {
+        restaurant_now.rate(rate);
+        return Message.SUCCESS;
+    }
+
+    public Message editrate(int rate) {
+        return Message.SUCCESS;
+    }
+
+    public ArrayList<String> showcart() {
+        ArrayList<String> s=new ArrayList<>();
+        for (int x:usercon.cart) {
+            s.add(Order.getOrder(x).toString());
+        }
+        return s;
+    }
+
+    public String addoredercomment(String orderId, String comment) {
+        usercon.CommentAnOrder(Integer.parseInt(orderId),comment);
+        return "comment successfully";
+    }
+
+    public String editoredercomment(String commentId, String comment) {
+        Comment.editcomment(Integer.parseInt(commentId),comment);
+        return "comment successfully";
+    }
+
+    public Message addrateorder(int rate,String OrderId) {
+        Order.getOrder(Integer.parseInt(OrderId)).rate(usercon.getID(),rate);
+        return Message.SUCCESS;
     }
 }

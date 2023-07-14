@@ -14,7 +14,7 @@ public class map {
     int yaln;
     ArrayList<ras> rases=new ArrayList<>();
     File file =new File("C:\\Users\\Nik\\IdeaProjects\\testmap\\src\\graph.txt");
-    map(){
+    public map(){
         try {
             Scanner scanmap=new Scanner(file);
             rasn=scanmap.nextInt();
@@ -38,7 +38,7 @@ public class map {
     }
     //in tabe be shoma location ra bar migardanad
     //jens an ra bayad az noe LocationAndMap.ras beszid ke yek noghte ast
-    ras get_location(int number){
+    public ras get_location(int number){
         return rases.get(number-1);
     }
     //shoma LocationAndMap.ras(location) ra midahid shomare ra migirid

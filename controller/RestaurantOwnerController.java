@@ -89,12 +89,31 @@ public class RestaurantOwnerController {
         return x;
     }
 
-    public ArrayList<String> showorder() {
-        restaurant.
+    public ArrayList<String> showcurrent_order() {
+        ArrayList<String> x=new ArrayList<>();
+        for (Order order:restaurant.currentOrders) {
+            x.add(order.toString());
+        }
+        return x;
+    }
+    public ArrayList<String> showrecived_order() {
+        ArrayList<String> x=new ArrayList<>();
+        for (Order order:restaurant.receivedOrders) {
+            x.add(order.toString());
+        }
+        return x;
+    }
+    public ArrayList<String> showfinished_order() {
+        ArrayList<String> x=new ArrayList<>();
+        for (Order order:restaurant.finishedOrders) {
+            x.add(order.toString());
+        }
+        return x;
     }
 
     public void editlocation(int mokh) {
         this.restaurant.editLocation(get_loc(mokh));
+        restaurantOwner.editLocation(restaurant.getRestaurantID(),get_loc(mokh));
     }
     ras get_loc(int s){
         map m=new map();
@@ -103,5 +122,47 @@ public class RestaurantOwnerController {
 
     public int showlocation() {
         return restaurant.getLocation().number;
+    }
+
+    public String showfoodtype() {
+        return restaurant.getFoodType();
+    }
+
+    public Message checkprogressrestaurantfoods() {
+        for (Food food:restaurant.activeFoods) {
+            if(checkprogressfood(food.getFoodID()).equals(Message.progressfood)){
+                return Message.progressfood;
+            }
+        }
+        return Message.SUCCESS;
+
+    }
+
+    public Message changefoodtype(String foodtype) {
+        restaurantOwner.editFoodType(restaurant.getRestaurantID(),foodtype);
+        return Message.SUCCESS;
+    }
+
+    public Message editorder(String orderid, String status, String time) {
+        if(Order.getOrder(Integer.parseInt(orderid))!=null){
+            if (status.equals("finished")){
+                restaurant.orderFinished(Integer.parseInt(orderid));
+            }else if (status.equals("accept")){
+                restaurant.acceptAnOrder(Integer.parseInt(orderid));
+            }
+        }
+       return Message.SUCCESS;
+    }
+
+    public boolean hasrespond(String Id) {
+        if (Comment.getComment(Integer.parseInt(Id))!=null){
+            return false;
+        }
+        return true;
+    }
+
+    public String setrespond(String id, String respond) {
+        Comment.getComment(Integer.parseInt(id)).setRespond(respond);
+        return "success";
     }
 }
