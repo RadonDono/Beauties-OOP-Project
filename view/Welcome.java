@@ -53,7 +53,7 @@ public class Welcome extends Menu {
                 System.out.println(Message.INVALID_CHOICE);
 
         }
-
+        this.run();
     }
 
     private void exit() {
@@ -116,7 +116,7 @@ public class Welcome extends Menu {
     private void registerAdmin() {
         String username = this.getInput("enter username");
         String password = this.getInput("enter password");
-        String number=("how much restaurant do you have?");
+        String number=this.getInput("how much restaurant do you have?");
         Message message = this.controller.handleCreateAdmin(username, password);
         for (int i = 0; i <Integer.parseInt(number) ; i++) {
             String name = this.getInput("enter name");
@@ -124,14 +124,14 @@ public class Welcome extends Menu {
             String loc = this.getInput("enter loc");
             Message messag = this.controller.handleCreateRestaurant(username, this.controller.restaurantOwner.getID(),type,loc);
         }
-        System.out.println(message == Message.SUCCESS ? "admin registered successfully" : message);
+        System.out.println(message == Message.SUCCESS ? "restourantowner registered successfully" : message);
     }
     private void registerDelivery() {
         String username = this.getInput("enter username");
         String password = this.getInput("enter password");
 
         Message message = this.controller.handleCreateAdmin(username, password);
-        System.out.println(message == Message.SUCCESS ? "admin registered successfully" : message);
+        System.out.println(message == Message.SUCCESS ? "deliver registered successfully" : message);
     }
 
     @Override

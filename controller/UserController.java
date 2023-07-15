@@ -23,7 +23,7 @@ public class UserController {
         ArrayList<String> x=new ArrayList<>();
         for (int i = 0; i < Restaurant.restaurants.size(); i++) {
             if (Restaurant.restaurants.get(i).getName().equals(name)){
-                x.add(Restaurant.restaurants.get(i).toString());
+                x.add(restaurant_now.activeFoods.get(i).toString());
             }
         }
         return x;
@@ -43,7 +43,7 @@ public class UserController {
 
     public ArrayList<String> searchfood(String username) {
         ArrayList<String> x=new ArrayList<>();
-        for (int i = 0; i < Restaurant.restaurants.size(); i++) {
+        for (int i = 0; i < restaurant_now.activeFoods.size(); i++) {
             if (restaurant_now.activeFoods.get(i).getName().equals(username)){
                 x.add(Restaurant.restaurants.get(i).toString());
             }
@@ -138,5 +138,11 @@ public class UserController {
     public Message addrateorder(int rate,String OrderId) {
         Order.getOrder(Integer.parseInt(OrderId)).rate(usercon.getID(),rate);
         return Message.SUCCESS;
+    }
+
+    public String getcomment(String username) {
+
+        return Order.getOrder(Integer.parseInt(username)).getComment().toString();
+
     }
 }

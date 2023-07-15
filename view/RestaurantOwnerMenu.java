@@ -32,10 +32,10 @@ public class RestaurantOwnerMenu extends Menu{
         } else {
             this.controller.restaurant = user.ownedRestaurants.get(0);
         }
-        showOptions();
         option();
     }
     void option(){
+        showOptions();
         String choice = this.getChoice();
 
         switch (choice) {
@@ -59,6 +59,8 @@ public class RestaurantOwnerMenu extends Menu{
                 break;
             case "5":
             case "exit":
+                Welcome welcomeMenu = Welcome.getInstance();
+                welcomeMenu.run();
                 break;
             default:
                 System.out.println(Message.INVALID_CHOICE);
@@ -220,8 +222,8 @@ public class RestaurantOwnerMenu extends Menu{
                 break;
             default:
                 System.out.println(Message.INVALID_CHOICE);
-                this.run();
-        }
+                showmenu();
+        }this.run();
     }
 
     private void comment() {
@@ -295,7 +297,7 @@ public class RestaurantOwnerMenu extends Menu{
         String Id = this.getInput("enter food Id");
         String percent = this.getInput("enter food percent");
         String time = this.getInput("enter food time");
-        if (this.controller.restaurant.getRestaurant(Integer.parseInt(Id))!=null) {
+        if (Food.getFood(Integer.parseInt(Id))!=null) {
             Message message = this.controller.setdiscount(Integer.parseInt(Id),Integer.parseInt(percent),Integer.parseInt(time));
             System.out.println(message == Message.SUCCESS ? "Activated" : message);
         }
@@ -321,7 +323,7 @@ public class RestaurantOwnerMenu extends Menu{
 
     private void active() {
         String Id = this.getInput("enter food Id");
-        if (this.controller.restaurant.getRestaurant(Integer.parseInt(Id))!=null) {
+        if (Food.getFood(Integer.parseInt(Id))!=null) {
             Message message = this.controller.activefood(Integer.parseInt(Id));
             System.out.println(message == Message.SUCCESS ? "Activated" : message);
         }
@@ -334,7 +336,7 @@ public class RestaurantOwnerMenu extends Menu{
     private void editprice() {
         String Id = this.getInput("enter food Id");
         String name = this.getInput("enter new price:");
-        if (this.controller.restaurant.getRestaurant(Integer.parseInt(Id))!=null) {
+        if (Food.getFood(Integer.parseInt(Id))!=null) {
             Message message = this.controller.editfoodprice(Integer.parseInt(name),Integer.parseInt(Id));
             System.out.println(message == Message.SUCCESS ? "price changed" : message);
         }
@@ -347,7 +349,7 @@ public class RestaurantOwnerMenu extends Menu{
     private void editname() {
         String Id = this.getInput("enter food Id");
         String name = this.getInput("enter new name:");
-        if (this.controller.restaurant.getRestaurant(Integer.parseInt(Id))!=null) {
+        if (Food.getFood(Integer.parseInt(Id))!=null) {
             Message message = this.controller.editfoodname(name,Integer.parseInt(Id));
             System.out.println(message == Message.SUCCESS ? "name changed" : message);
         }

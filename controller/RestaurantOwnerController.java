@@ -99,7 +99,10 @@ public class RestaurantOwnerController {
     public ArrayList<String> showrecived_order() {
         ArrayList<String> x=new ArrayList<>();
         for (Order order:restaurant.receivedOrders) {
-            x.add(order.toString());
+            if(order!=null) {
+                x.add(order.toString());
+            }
+
         }
         return x;
     }

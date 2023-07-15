@@ -48,7 +48,8 @@ public class UserMenu extends Menu{
                 break;
         case "5":
         case "exit":
-            this.exit();
+            Welcome welcomeMenu = Welcome.getInstance();
+            welcomeMenu.run();
             break;
         default:
         System.out.println(Message.INVALID_CHOICE);
@@ -112,7 +113,10 @@ public class UserMenu extends Menu{
         for (int i = 0; i < Restaurant.restaurants.size(); i++) {
             System.out.println(Restaurant.restaurants.get(i));
         }
-        showRestaurantoption();
+        System.out.println("what do you want to do?");
+        System.out.println("1. select");
+        System.out.println("2. search");
+        System.out.println("3. exit");
         String choice = this.getChoice();
 
         switch (choice) {
@@ -166,7 +170,10 @@ public class UserMenu extends Menu{
         for (String ar:menu) {
             System.out.println(ar);
         }
-        showMenuOptions();
+        System.out.println("1. select");
+        System.out.println("2 search");
+        System.out.println("3comment");
+        System.out.println("4. exit");
         String choice = this.getChoice();
 
         switch (choice) {
@@ -305,7 +312,7 @@ public class UserMenu extends Menu{
                 Message message = this.controller.selectfood(username);
                 System.out.println(message == Message.SUCCESS ? "food selected successfully" : message);
                 if (message == Message.SUCCESS){
-                    this.run();
+                    this.showMenu();
                 }
                 else{
                     this.showSelectfood();
@@ -332,6 +339,8 @@ public class UserMenu extends Menu{
         this.showSelectfood();
     }
     void ordercomment(){
+        String username = this.getInput("enter orderID");
+        System.out.println(this.controller.getcomment(username));
         System.out.println("what do you want to do?");
         System.out.println("1. addcomment");
         System.out.println("2. editcoment");
@@ -401,7 +410,7 @@ public class UserMenu extends Menu{
         System.out.println("what do you want to do?");
         System.out.println("1. select");
         System.out.println("2. search");
-        System.out.println("2. comment");
+        System.out.println("3. comment");
         System.out.println("3. exit");
     }
 
@@ -421,10 +430,17 @@ public class UserMenu extends Menu{
     }
 
     private void Showorders() {
+        System.out.println("finished");
         for (int orderid:user.finishedOrdersID) {
             System.out.println("Order :"+orderid);
 
         }
+        System.out.println("in progress:");
+        for (int orderid:user.inProgressOrdersID) {
+            System.out.println("Order :"+orderid);
+
+        }
+
         System.out.println("what do you want to do?");
         System.out.println("1. information");
         System.out.println("2. comment");
